@@ -113,12 +113,59 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
+        this.board.setViewingPerspective(side);
+        for (int col = 0; col < this.board.size(); col += 1) {
+            if (this.tiltColumnUp(col)) {
+                changed = true;
+            }
+        }
+        this.board.setViewingPerspective(Side.NORTH);
 
         checkGameOver();
         if (changed) {
             setChanged();
         }
         return changed;
+    }
+
+    public boolean tiltColumnUp(int col) {
+        int upper = this.board.size() - 1;
+        boolean changed = false;
+        for (int r = this.board.size() - 2; r >= 0; r -= 1) {
+            Tile curTile = this.board.tile(col, r);
+            if (curTile == null) {
+                continue;
+            }
+            int targetRow = this.calTargetRow(col, r, upper);
+            if (targetRow != r) {
+                if (this.board.tile(col, targetRow) != null) {
+                    upper = targetRow - 1;
+                }
+                if (this.board.move(col, targetRow, curTile)) {
+                    this.score += this.board.tile(col, targetRow).value();
+                }
+                changed = true;
+            }
+        }
+        return changed;
+    }
+
+    public int calTargetRow(int col, int row, int upper) {
+        Tile curTile = this.board.tile(col, row);
+        int finalRow = row;
+        for (int targetRow = row + 1; targetRow <= upper; targetRow += 1) {
+            Tile targetTile = this.board.tile(col, targetRow);
+            if (targetTile == null) {
+                finalRow = targetRow;
+            } else {
+                if (curTile.value() == targetTile.value()) {
+                    upper = targetRow;
+                    finalRow = targetRow;
+                }
+                break;
+            }
+        }
+        return finalRow;
     }
 
     /** Checks if the game is over and sets the gameOver variable
