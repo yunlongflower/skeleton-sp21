@@ -26,7 +26,7 @@ public class ArrayDeque<T> {
             resize();
         }
         elements[first] = item;
-        first = (first - 1) % elements.length;
+        first = (first - 1 + elements.length) % elements.length;
         size += 1;
     }
 
@@ -72,7 +72,7 @@ public class ArrayDeque<T> {
             return null;
         }
         T result = elements[last];
-        last = (last - 1) % elements.length;
+        last = (last - 1 + elements.length) % elements.length;
         size -= 1;
         return result;
     }
