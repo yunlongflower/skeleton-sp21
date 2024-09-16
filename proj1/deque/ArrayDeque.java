@@ -12,7 +12,13 @@ public class ArrayDeque<T> {
     }
 
     private void resize() {
-
+        T[] tmp = (T[]) new Object[size * 2];
+        for (int i = 0; i < elements.length; i++) {
+            tmp[i] = get(i);
+        }
+        first = -1 % tmp.length;
+        last = size - 1;
+        elements = tmp;
     }
 
     public void addFirst(T item) {
