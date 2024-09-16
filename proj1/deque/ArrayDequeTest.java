@@ -1,8 +1,10 @@
 package deque;
 
+import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Test;
 
 import java.lang.reflect.Array;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -102,7 +104,7 @@ public class ArrayDequeTest {
 
     @Test
     /* Add large number of elements to deque; check if order is correct. */
-    public void bigLLDequeTest() {
+    public void bigADequeTest() {
 
 //        System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
         ArrayDeque<Integer> ad1 = new ArrayDeque<>();
@@ -118,5 +120,40 @@ public class ArrayDequeTest {
             assertEquals("Should have the same value", i, (double) ad1.removeLast(), 0.0);
         }
 
+    }
+
+    @Test
+    public void fullADequeTest() {
+        ArrayDeque<Integer> ad = new ArrayDeque<>();
+        for (int i = 0; i < 100; i++) {
+            ad.addFirst(i);
+        }
+        assertEquals(100, ad.size());
+        int first = ad.removeFirst();
+        assertEquals(first, 99);
+        int last = ad.removeLast();
+        assertEquals(last, 0);
+    }
+
+    @Test
+    public void randomizedTest() {
+        ArrayDeque<Integer> ad = new ArrayDeque<>();
+
+        int N = 5000;
+        for (int i = 0; i < N; i += 1) {
+            int operationNumber = StdRandom.uniform(0, 4);
+            if (operationNumber == 0) {
+                // addLast
+                int randVal = StdRandom.uniform(0, 100);
+                ad.addLast(randVal);
+            } else if (operationNumber == 1) {
+                ad.removeLast();
+            } else if (operationNumber == 2) {
+                int randVal = StdRandom.uniform(0, 100);
+                ad.addFirst(randVal);
+            } else if (operationNumber == 3) {
+                ad.removeFirst();
+            }
+        }
     }
 }

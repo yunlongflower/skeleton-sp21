@@ -16,7 +16,7 @@ public class ArrayDeque<T> {
         for (int i = 0; i < elements.length; i++) {
             tmp[i] = get(i);
         }
-        first = -1 % tmp.length;
+        first = elements.length - 1;
         last = size - 1;
         elements = tmp;
     }
