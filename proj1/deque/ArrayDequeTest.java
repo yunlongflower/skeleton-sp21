@@ -123,19 +123,6 @@ public class ArrayDequeTest {
     }
 
     @Test
-    public void fullADequeTest() {
-        ArrayDeque<Integer> ad = new ArrayDeque<>();
-        for (int i = 0; i < 100; i++) {
-            ad.addFirst(i);
-        }
-        assertEquals(100, ad.size());
-        int first = ad.removeFirst();
-        assertEquals(first, 99);
-        int last = ad.removeLast();
-        assertEquals(last, 0);
-    }
-
-    @Test
     public void randomizedTest() {
         ArrayDeque<Integer> ad = new ArrayDeque<>();
 

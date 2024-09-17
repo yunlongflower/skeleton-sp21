@@ -5,7 +5,7 @@ import java.util.Iterator;
 public class ArrayDeque<T> implements Deque<T> {
     private T[] elements;
     private int size, first, last;
-    private static final int INITLENGTH = 100;
+    private static final int INITLENGTH = 8;
 
     public ArrayDeque() {
         elements = (T[]) new Object[INITLENGTH];
@@ -121,10 +121,10 @@ public class ArrayDeque<T> implements Deque<T> {
         if (o == null) {
             return false;
         }
-        if (!(o instanceof ArrayDeque)) {
+        if (!(o instanceof Deque)) {
             return false;
         }
-        ArrayDeque<T> other = (ArrayDeque<T>) o;
+        Deque<T> other = (Deque<T>) o;
         if (size() != other.size()) {
             return false;
         }
