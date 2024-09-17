@@ -5,6 +5,7 @@ import java.util.Iterator;
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] elements;
     private int size, first, last;
+    private static final double loadFactor = 0.5;
     private static final int INITLENGTH = 8;
 
     public ArrayDeque() {
@@ -69,6 +70,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         T result = elements[first];
         elements[first] = null;
         size -= 1;
+        shrink();
         return result;
     }
 
@@ -81,7 +83,24 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         elements[last] = null;
         last = (last - 1 + elements.length) % elements.length;
         size -= 1;
+        shrink();
         return result;
+    }
+
+    private void shrink() {
+        if (elements.length <= INITLENGTH) {
+            return;
+        }
+        if ((double) size / (double) elements.length > loadFactor) {
+            return;
+        }
+        T[] tmp = (T[]) new Object[size];
+        for (int i = 0; i < size; i++) {
+            tmp[i] = get(i);
+        }
+        first = size - 1;
+        last = size - 1;
+        elements = tmp;
     }
 
     @Override
