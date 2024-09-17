@@ -5,8 +5,8 @@ import java.util.Iterator;
 public class LinkedListDeque<T> implements Deque<T> {
 
     private static class Node<T> {
-       T item;
-       Node<T> previous, next;
+        T item;
+        Node<T> previous, next;
     }
 
     private Node<T> sentinel;
@@ -42,12 +42,12 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     @Override
-    public int size(){
+    public int size() {
         return size;
     }
 
     @Override
-    public void printDeque(){
+    public void printDeque() {
         for (Node<T> node = sentinel.next; node != sentinel; node = node.next) {
             System.out.print(node.item);
             if (node.next != sentinel) {

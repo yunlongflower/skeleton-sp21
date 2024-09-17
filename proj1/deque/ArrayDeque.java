@@ -5,10 +5,13 @@ import java.util.Iterator;
 public class ArrayDeque<T> implements Deque<T> {
     private T[] elements;
     private int size, first, last;
+    private static final int INITLENGTH = 100;
 
     public ArrayDeque() {
-        elements = (T[]) new Object[100];
-        size = first = last = 0;
+        elements = (T[]) new Object[INITLENGTH];
+        size = 0;
+        first = 0;
+        last = 0;
     }
 
     private void resize() {

@@ -3,18 +3,18 @@ package deque;
 import java.util.Comparator;
 
 public class MaxArrayDeque<T> extends ArrayDeque<T> {
-    private T max_value;
+    private T maxValue;
     private Comparator<T> comparator;
     public MaxArrayDeque(Comparator<T> c) {
         super();
-        max_value = null;
+        maxValue = null;
         comparator = c;
     }
 
     @Override
     public void addFirst(T item) {
         if (isEmpty() || comparator.compare(item, max_value) > 0) {
-            max_value = item;
+            maxValue = item;
         }
         super.addFirst(item);
     }
@@ -22,7 +22,7 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
     @Override
     public void addLast(T item) {
         if (isEmpty() || comparator.compare(item, max_value) > 0) {
-            max_value = item;
+            maxValue = item;
         }
         super.addLast(item);
     }
@@ -41,22 +41,22 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
     @Override
     public T removeFirst() {
         T result = super.removeFirst();
-        if (result == max_value) {
-            max_value = findMax(comparator);
+        if (result == maxValue) {
+            maxValue = findMax(comparator);
         }
         return result;
     }
 
     public T removeLast() {
         T result = super.removeLast();
-        if (result == max_value) {
-            max_value = findMax(comparator);
+        if (result == maxValue) {
+            maxValue = findMax(comparator);
         }
         return result;
     }
 
     public T max() {
-        return max_value;
+        return maxValue;
     }
 
     public T max(Comparator<T> c) {
