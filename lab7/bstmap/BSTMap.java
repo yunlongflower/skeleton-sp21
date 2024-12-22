@@ -5,10 +5,10 @@ import java.util.Set;
 
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     private class BSTNode<K extends Comparable<K>, V> {
-        K key;
-        V value;
-        BSTNode<K, V> left;
-        BSTNode<K, V> right;
+        private K key;
+        private V value;
+        private BSTNode<K, V> left;
+        private BSTNode<K, V> right;
 
         BSTNode(K key, V value) {
             this.key = key;
@@ -16,8 +16,8 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         }
     }
 
-    BSTNode<K, V> root;
-    int size;
+    private BSTNode<K, V> root;
+    private int size;
 
     public BSTMap() {
         this.root = null;
@@ -109,5 +109,18 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     @Override
     public Iterator<K> iterator() {
         throw new UnsupportedOperationException();
+    }
+
+    public void printInOrder() {
+        printTree(root);
+    }
+
+    private void printTree(BSTNode<K, V> node) {
+        if (node == null) {
+            return;
+        }
+        printTree(node.left);
+        System.out.println(node.key + ": "+ node.value);
+        printTree(node.right);
     }
 }
