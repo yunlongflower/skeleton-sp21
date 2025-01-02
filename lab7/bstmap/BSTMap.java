@@ -94,21 +94,89 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
+        Set<K> key_set = new TreeSet<K>();
+        addToKeySet(key_set, root);
+        return key_set;
     }
+
+    private void addToKeySet(Set<K> key_set, BSTNode<K, V> node) {
+        if (node == null) {
+            return;
+        }
+        addToKeySet(key_set, node.left);
+        key_set.add(node.key);
+        addToKeySet(key_set, node.right);
+    }
+
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException();
+        V removed_value = null;
+        remove(root, key, removed_value);
+        return removed_value;
     }
 
     @Override
     public V remove(K key, V value) {
-        throw new UnsupportedOperationException();
+        V removed_value = value;
+        remove(root, ket, removed_value);
+        return removed_value;
+    }
+
+    private BSTNode<K, V> remove(BSTNode<K, V> node, K key, V removed_value) {
+        if (node == null) {
+            return null;
+        }
+        if (node.key.compareTo(key) == 0) {
+            if (removed_value == null || node.value.compareTo(removed_value) == 0) {
+                removed_value = node.value;
+                node = remove(node)
+            } else {
+                removed_value = null;
+            }
+        } else if (node.key.compareTo(key) < 0) {
+            node.right = remove(node.right, key, removed_value);
+        } else {
+            node.left = remove(node.left, key, removed_value);
+        }
+        return node;
+    }
+
+    private V remove(BSTNode<K, V> node) {
+        if (node.left == null && node.right == null) {
+            return null;
+        } else if (node.left != null && node.right != null) {
+            right_most = node.left
+            while (right_most.right != null) {
+                right_most = right_most.right;
+            }
+            node.key = right_most.key;
+            node.value = right_most.value;
+            remove(node.left, right_most.key);
+        } else if (node.left != null) {
+           return node.left; 
+        } else {
+            return node.right;
+        }
+    }
+
+    private class KeyIterator extends Iterator<K> {
+        private Iteratore<K> key_iter = keySet().iterator();
+        private KeyIterator() {
+            key_set = keySet();
+        }
+
+        public hasNext() boolean {
+            return key_iter.hasNext();
+        }
+
+        public next() K {
+            return key_iter.next();
+        }
     }
 
     @Override
     public Iterator<K> iterator() {
-        throw new UnsupportedOperationException();
+        return new KeyIterator();
     }
 
     public void printInOrder() {
