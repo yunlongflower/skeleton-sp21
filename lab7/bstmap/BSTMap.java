@@ -129,7 +129,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         if (node.key.compareTo(key) == 0) {
             if (removed_value == null || node.value.compareTo(removed_value) == 0) {
                 removed_value = node.value;
-                node = remove(node)
+                node = remove(node);
             } else {
                 removed_value = null;
             }
