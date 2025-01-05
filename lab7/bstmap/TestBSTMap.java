@@ -3,6 +3,9 @@ package bstmap;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import java.util.TreeSet;
+import java.util.Set;
+
 /** Tests by Brendan Hu, Spring 2015, revised for 2016 by Josh Hug */
 public class TestBSTMap {
 
@@ -85,6 +88,68 @@ public class TestBSTMap {
         BSTMap<String, Integer> b = new BSTMap<String, Integer>();
         b.put("hi", null);
         assertTrue(b.containsKey("hi"));
+    }
+
+    @Test
+    public void removeTest() {
+          BSTMap<Integer, String> b = new BSTMap<>();
+          b.put(3, "c");
+          b.put(2, "b");
+          b.put(1, "a");
+          b.put(4, "d");
+          b.put(5, "e");
+          b.printInOrder();
+          b.remove(2);
+          assertTrue(b.containsKey(1));
+          assertFalse(b.containsKey(2));
+          assertTrue(b.containsKey(3));
+          assertTrue(b.containsKey(4));
+          assertTrue(b.containsKey(5));
+          b.printInOrder();
+          b.put(2, "b");
+          assertTrue(b.containsKey(1));
+          assertTrue(b.containsKey(2));
+          assertTrue(b.containsKey(3));
+          assertTrue(b.containsKey(4));
+          assertTrue(b.containsKey(5));
+          b.remove(3);
+          b.remove(5);
+          b.printInOrder();
+          assertTrue(b.containsKey(1));
+          assertTrue(b.containsKey(2));
+          assertFalse(b.containsKey(3));
+          assertTrue(b.containsKey(4));
+          assertFalse(b.containsKey(5));
+    }
+
+    @Test
+    public void iteratorTest() {
+        BSTMap<Integer, String> b = new BSTMap<>();
+        b.put(1, "a");
+        b.put(2, "b");
+        b.put(3, "c");
+        Set<Integer> key_set = new TreeSet<Integer>();
+        for (Integer i : b) {
+            key_set.add(i);
+        }
+        Set<Integer> expected = new TreeSet<>();
+        expected.add(1);
+        expected.add(2);
+        expected.add(3);
+        assertEquals(expected, key_set);
+    }
+
+    @Test
+    public void keySetTest() {
+        BSTMap<Integer, String> b = new BSTMap<>();
+        b.put(1, "a");
+        b.put(2, "b");
+        b.put(3, "c");
+        Set<Integer> expected = new TreeSet<>();
+        expected.add(1);
+        expected.add(2);
+        expected.add(3);
+        assertEquals(expected, b.keySet());
     }
 
 }

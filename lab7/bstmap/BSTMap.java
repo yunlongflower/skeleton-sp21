@@ -2,9 +2,10 @@ package bstmap;
 
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
-public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
-    private class BSTNode<K extends Comparable<K>, V> {
+public class BSTMap<K extends Comparable<K>, V extends Comparable<V>> implements Map61B<K, V> {
+    private class BSTNode<K extends Comparable<K>, V extends Comparable<V>> {
         private K key;
         private V value;
         private BSTNode<K, V> left;
@@ -117,9 +118,8 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     @Override
     public V remove(K key, V value) {
-        V removed_value = value;
-        remove(root, ket, removed_value);
-        return removed_value;
+        remove(root, key, value);
+        return value;
     }
 
     private BSTNode<K, V> remove(BSTNode<K, V> node, K key, V removed_value) {
@@ -141,17 +141,18 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         return node;
     }
 
-    private V remove(BSTNode<K, V> node) {
+    private BSTNode<K, V> remove(BSTNode<K, V> node) {
         if (node.left == null && node.right == null) {
             return null;
         } else if (node.left != null && node.right != null) {
-            right_most = node.left
+            BSTNode<K, V> right_most = node.left;
             while (right_most.right != null) {
                 right_most = right_most.right;
             }
             node.key = right_most.key;
             node.value = right_most.value;
-            remove(node.left, right_most.key);
+            remove(node.left, right_most.key, null);
+            return node;
         } else if (node.left != null) {
            return node.left; 
         } else {
@@ -159,17 +160,17 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         }
     }
 
-    private class KeyIterator extends Iterator<K> {
-        private Iteratore<K> key_iter = keySet().iterator();
+    private class KeyIterator implements Iterator<K> {
+        private Iterator<K> key_iter;
         private KeyIterator() {
-            key_set = keySet();
+            key_iter = keySet().iterator();
         }
 
-        public hasNext() boolean {
+        public boolean hasNext() {
             return key_iter.hasNext();
         }
 
-        public next() K {
+        public K next() {
             return key_iter.next();
         }
     }
