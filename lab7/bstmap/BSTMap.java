@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class BSTMap<K extends Comparable<K>, V extends Comparable<V>> implements Map61B<K, V> {
-    private class BSTNode<K extends Comparable<K>, V extends Comparable<V>> {
+public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
+    private class BSTNode<K extends Comparable<K>, V> {
         private K key;
         private V value;
         private BSTNode<K, V> left;
@@ -127,7 +127,7 @@ public class BSTMap<K extends Comparable<K>, V extends Comparable<V>> implements
             return null;
         }
         if (node.key.compareTo(key) == 0) {
-            if (removed_value == null || node.value.compareTo(removed_value) == 0) {
+            if (removed_value == null || node.value == removed_value) {
                 removed_value = node.value;
                 node = remove(node);
             } else {
